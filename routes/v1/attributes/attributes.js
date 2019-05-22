@@ -1,22 +1,22 @@
 import express from 'express';
-import Product from '../../../controllers/product';
+import Attribute from '../../../controllers/attributes';
 
 const router = express.Router();
 
 // create car instance
-const product = new Product();
+const attribute = new Attribute();
 
 // get all attributes
-router.get('/', product.create);
+router.get('/', attribute.allAttributes);
 
 // get one attribute by ID
-router.get('/:attributeID', product.fetch);
+router.get('/:attributeID(\\d+)', attribute.singleAttribute);
 
 // get values of attribute from attribute
-router.get('/values/:attributeID', product.fetch);
+router.get('/values/:attributeID(\\d+)', attribute.attributeValues);
 
 // get categories of a department
-router.get('/inProduct/:productID', product.fetch);
+router.get('/inProduct/:productID(\\d+)', attribute.allAttributes);
 
 
 export default router;

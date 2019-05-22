@@ -1,10 +1,17 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+
+
+const AttributeModel = (sequelize, DataTypes) => {
   const Attribute = sequelize.define('Attribute', {
-    name: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {});
-  Attribute.associate = function(models) {
+  // eslint-disable-next-line no-unused-vars
+  Attribute.associate = (models) => {
     // associations can be defined here
   };
   return Attribute;
 };
+
+export default AttributeModel;
