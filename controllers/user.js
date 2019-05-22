@@ -1,10 +1,32 @@
 class User {
+  /**
+     * @author frank
+     * @param {*} req
+     * @param {*} res
+     * @returns {*} user
+     */
+  async register(req, res) {
+    const { name, email, password } = req.body;
+    try {
+      const user = await CustomerModel.create(email, name, password);
+      res.status(201).json({
+        status: 201,
+        user: user.getAsJsonObject('customer').remove('password')
+      });
+    } catch (error) {
+      res.status(400).json({
+        status: 400,
+        mesg: error.message
+      });
+    }
+  }
  
 /**
- * 
- * @param {login user} req 
- * @param {*token on success} res 
- */
+  * @author frank harerimana
+  * @param {*} req
+  * @param {*} res
+  * @returns {*} user
+  */
 
 
 async signup(req, res) {

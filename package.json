@@ -6,6 +6,7 @@
   "scripts": {
     "start": "babel-node ./server.js",
     "dev": "nodemon --exec babel-node ./server.js",
+    "migrate": "node_modules/.bin/sequelize db:migrate:undo:all && node_modules/.bin/sequelize db:migrate",
     "test": "test"
   },
   "repository": {
@@ -19,18 +20,26 @@
   },
   "homepage": "https://github.com/frankhn/e-commerce-system#readme",
   "dependencies": {
-    "@babel/core": "^7.4.4",
+    "@babel/core": "^7.4.0",
     "@babel/node": "^7.2.2",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
-    "@babel/register": "^7.4.4",
+    "@babel/preset-env": "^7.4.2",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
+    "passport": "^0.4.0",
+    "pg": "^7.11.0",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^5.8.6",
-    "sequelize-cli": "^5.4.0"
+    "sequelize-cli": "^5.4.0",
+    "sequelize-transforms": "^2.0.0"
   },
   "devDependencies": {
+    "@babel/polyfill": "^7.4.0",
+    "@babel/register": "^7.4.0",
+    "babel-register": "^6.26.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
