@@ -1,11 +1,24 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+/* eslint-disable camelcase */
+
+
+const ShippingRegion = (sequelize, DataTypes) => {
   const Shipping_region = sequelize.define('Shipping_region', {
-    shipping_region_id: DataTypes.INTEGER,
-    shipping_region: DataTypes.STRING
+    shipping_region_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: true
+    },
+    shipping_region: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   }, {});
-  Shipping_region.associate = function(models) {
+
+  // eslint-disable-next-line no-unused-vars
+  Shipping_region.associate = (models) => {
     // associations can be defined here
   };
   return Shipping_region;
 };
+
+export default ShippingRegion;

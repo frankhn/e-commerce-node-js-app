@@ -1,33 +1,51 @@
 import express from 'express';
-import User from '../../../controllers/user';
+import passport from 'passport';
+import Customer from '../../../controllers/customer';
+import TokenValidator from '../../../middlewares/TokenValidator';
 
 const router = express.Router();
 
-// create instance for the user class 
-const user = new User();
+// create instance for the customer class
+const customer = new Customer();
+
 
 // update customer
-router.put('/', user.signup);
+// router.put('/', (req, res, next) => {
+//   new TokenValidator(req, res, next).verify();
+// }, customer.updateAddress);
+
 
 // get customer by token
-router.get('/', user.login)
+router.get('/profile', (req, res, next) => {
+  new TokenValidator(req, res, next).verify();
+}, customer.profile);
 
-// signup user
-router.post('/', user.signup)
 
-// login user
-router.post('/login', user.login)
+// signup customer
+router.post('/', customer.register);
+
+
+// login customer
+router.post('/login', customer.login);
+
 
 // facebook authentication
-router.post('/', user.login)
-
+router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
+router.get(
+  '/facebook/callback',
+  passport.authenticate('facebook', { session: false, failureRedirect: '/auth/facebook' }),
+  customer.socialLogin
+);
 
 // update customer address
-router.put('/', user.login)
+router.put('/address', (req, res, next) => {
+  new TokenValidator(req, res, next).verify();
+}, customer.updateAddress);
+
 
 // update customer credit card
-router.put('/creditCard', user.login)
-
-
+router.put('/creditCard', (req, res, next) => {
+  new TokenValidator(req, res, next).verify();
+}, customer.updateCreditCard);
 
 export default router;
