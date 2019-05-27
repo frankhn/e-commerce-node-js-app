@@ -1,14 +1,14 @@
-import express from 'express';
-import Product from '../../../controllers/product';
+// import express from 'express';
+// import Product from '../../../controllers/product';
 
-const router = express.Router();
+// const router = express.Router();
 
-// create car instance
-const product = new Product();
+// // create car instance
+// const product = new Product();
 
-router.post('/charge', product.create);
+// router.post('/charge', product.create);
 
-router.post('/webHooks', product.fetch);
+// router.post('/webHooks', product.fetch);
 
 
-export default router;
+// export default router;

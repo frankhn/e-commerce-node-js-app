@@ -1,16 +1,16 @@
-import express from 'express';
-import Product from '../../../controllers/product';
+// import express from 'express';
+// import Product from '../../../controllers/product';
 
-const router = express.Router();
+// const router = express.Router();
 
-// create car instance
-const product = new Product();
+// // create car instance
+// const product = new Product();
 
-// get all departments
-router.get('/', product.create);
+// // get all departments
+// router.get('/', product.create);
 
-// get one department
-router.get('/:departmentID', product.fetch);
+// // get one department
+// router.get('/:departmentID', product.fetch);
 
 
-export default router;
+// export default router;

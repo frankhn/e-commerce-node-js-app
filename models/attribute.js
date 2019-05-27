@@ -1,7 +1,7 @@
 
 
 const AttributeModel = (sequelize, DataTypes) => {
-  const Attribute = sequelize.define('Attribute', {
+  const Attribute = sequelize.define('attribute', {
     name: {
       type: DataTypes.STRING,
       allowNull: false

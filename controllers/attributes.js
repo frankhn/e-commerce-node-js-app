@@ -22,12 +22,12 @@ class Attributes {
       const attributes = await AttributeModel.findAll();
       res.status(200).json({
         status: 200,
-        list: attributes.dataValues,
+        list: attributes,
       });
     } catch (error) {
       res.status(400).json({
         status: 400,
-        message: 'no attributes yet',
+        message: error,
       });
     }
   }
@@ -40,7 +40,7 @@ class Attributes {
      */
   async singleAttribute(req, res) {
     try {
-      const attributes = await AttributeModel.findOne({ where: { attribute_id: req.attributeID } });
+      const attributes = await AttributeModel.findOne({ where: { id: req.params.attributeID } });
       res.status(200).json({
         status: 200,
         list: attributes.dataValues,
@@ -48,7 +48,7 @@ class Attributes {
     } catch (error) {
       res.status(400).json({
         status: 400,
-        message: 'no attributes yet',
+        message: error,
       });
     }
   }
@@ -66,12 +66,12 @@ class Attributes {
       });
       res.status(200).json({
         status: 200,
-        list: attributes.dataValues,
+        list: attributes,
       });
     } catch (error) {
       res.status(400).json({
         status: 400,
-        message: 'no attributes yet',
+        message: error,
       });
     }
   }

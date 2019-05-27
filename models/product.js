@@ -1,7 +1,7 @@
 
 
-const ProductModel = (sequelize, DataTypes) => {
-  const Product = sequelize.define('Product', {
+const productModel = (sequelize, DataTypes) => {
+  const Product = sequelize.define('product', {
     name: {
       type: DataTypes.STRING(100),
       allowNull: false,
@@ -45,4 +45,4 @@ const ProductModel = (sequelize, DataTypes) => {
   return Product;
 };
 
-export default ProductModel;
+export default productModel;
