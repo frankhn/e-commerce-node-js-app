@@ -1,7 +1,7 @@
 
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Attribute_values', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('attribute_values', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -15,12 +15,14 @@ module.exports = {
       type: Sequelize.STRING
     },
     createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      allowNull: true,
+      type: Sequelize.DATE,
+      defaultValues: Sequelize.literal('NOW()')
     },
     updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      allowNull: true,
+      type: Sequelize.DATE,
+      defaultValues: Sequelize.literal('NOW()')
     }
   }),
   // eslint-disable-next-line no-unused-vars

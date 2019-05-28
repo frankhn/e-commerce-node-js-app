@@ -9,11 +9,11 @@ module.exports = {
       type: Sequelize.INTEGER
     },
     name: {
-      type: Sequelize.STRING(100),
+      type: Sequelize.TEXT,
       unique: true
     },
     description: {
-      type: Sequelize.STRING(100)
+      type: Sequelize.TEXT
     },
     price: {
       type: Sequelize.DECIMAL
@@ -34,12 +34,14 @@ module.exports = {
       type: Sequelize.INTEGER
     },
     createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      allowNull: true,
+      type: Sequelize.DATE,
+      defaultValues: Sequelize.literal('NOW()')
     },
     updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      allowNull: true,
+      type: Sequelize.DATE,
+      defaultValues: Sequelize.literal('NOW()')
     }
   }),
   // eslint-disable-next-line no-unused-vars

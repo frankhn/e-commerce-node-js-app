@@ -2,7 +2,7 @@
 
 
 const ShippingRegion = (sequelize, DataTypes) => {
-  const Shipping_region = sequelize.define('Shipping_region', {
+  const Shipping_region = sequelize.define('shipping_regions', {
     shipping_region_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

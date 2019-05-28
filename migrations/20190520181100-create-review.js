@@ -18,16 +18,15 @@ module.exports = {
     rating: {
       type: Sequelize.INTEGER
     },
-    created_on: {
-      type: Sequelize.DATE
-    },
     createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      allowNull: true,
+      type: Sequelize.DATE,
+      defaultValues: Sequelize.literal('NOW()')
     },
     updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      allowNull: true,
+      type: Sequelize.DATE,
+      defaultValues: Sequelize.literal('NOW()')
     }
   }),
   // eslint-disable-next-line no-unused-vars

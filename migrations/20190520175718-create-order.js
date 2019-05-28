@@ -1,7 +1,7 @@
 
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Orders', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('orders', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -12,13 +12,14 @@ module.exports = {
       type: Sequelize.DECIMAL
     },
     created_on: {
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
+      defaultValue: Date.now()
     },
     shipped_on: {
       type: Sequelize.DATE
     },
     status: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     comments: {
       type: Sequelize.STRING
@@ -33,18 +34,21 @@ module.exports = {
       type: Sequelize.STRING
     },
     shipping_id: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
+      defaultValue: Date.now()
     },
     tax_id: {
       type: Sequelize.INTEGER
     },
     createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      allowNull: true,
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.literal('NOW()')
     },
     updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      allowNull: true,
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.literal('NOW()')
     }
   }),
   // eslint-disable-next-line no-unused-vars

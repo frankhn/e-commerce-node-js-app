@@ -28,8 +28,8 @@ class Customer {
       };
       let user = await CustomerModel.create(NewUser);
       if (user) {
-        const token = jwt.sign({ user }, process.env.SECRETKEY);
         user = new UserDataResponse(user).select();
+        const token = jwt.sign({ user }, process.env.SECRETKEY);
         res.status(201).json({
           status: 201,
           user,
@@ -55,8 +55,8 @@ class Customer {
       const { email, password } = req.body;
       let customer = await CustomerModel.findOne({ where: { email, password } });
       if (customer.dataValues) {
-        const token = jwt.sign({ customer }, process.env.SECRETKEY);
         customer = new UserDataResponse(customer.dataValues).select();
+        const token = jwt.sign({ customer }, process.env.SECRETKEY);
         res.status(201).json({
           status: 201,
           customer,
@@ -81,11 +81,11 @@ class Customer {
   async profile(req, res) {
     try {
       let customer = await CustomerModel.findOne({ where: { id: req.user.id } });
-      if (customer.dataValues) {
-        customer = new UserDataResponse(customer.dataValues).select();
+      if (customer) {
+        customer = new UserDataResponse(customer).select();
         const token = jwt.sign({ customer }, process.env.SECRETKEY);
-        res.status(201).json({
-          status: 201,
+        res.status(200).json({
+          status: 200,
           customer,
           accessToken: `Bearer ${token}`
         });
@@ -131,13 +131,17 @@ class Customer {
   */
   async updateCreditCard(req, res) {
     const { credit_card } = req.body;
+    // console.log(req.user);
     try {
-      const user = await CustomerModel.update(
-        { credit_card }, { where: { id: req.user.id } }
+      const { id } = req.user;
+      let customer = await CustomerModel.findOne({ where: { id } });
+      customer = new UserDataResponse(customer.dataValues).select();
+      await CustomerModel.update(
+        { credit_card }, { where: { id } }
       );
       res.status(201).json({
         status: 201,
-        user: user.getAsJsonObject('customer').remove('password')
+        customer
       });
     } catch (error) {
       res.status(400).json({

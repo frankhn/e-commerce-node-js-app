@@ -1,11 +1,14 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const Department = sequelize.define('Department', {
+
+
+const DepartmentModel = (sequelize, DataTypes) => {
+  const Department = sequelize.define('department', {
     name: DataTypes.STRING,
     description: DataTypes.STRING
   }, {});
-  Department.associate = function(models) {
-    // associations can be defined here
-  };
+  // Department.associate = function (models) {
+  //   // associations can be defined here
+  // };
   return Department;
 };
+
+export default DepartmentModel;

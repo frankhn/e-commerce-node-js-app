@@ -1,19 +1,47 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const Order = sequelize.define('Order', {
-    total_amount: DataTypes.DECIMAL,
-    created_on: DataTypes.DATE,
-    shipped_on: DataTypes.DATE,
-    status: DataTypes.INTEGER,
-    comments: DataTypes.STRING,
-    customer_id: DataTypes.INTEGER,
-    auth_code: DataTypes.STRING,
-    reference: DataTypes.STRING,
-    shipping_id: DataTypes.INTEGER,
-    tax_id: DataTypes.INTEGER
+
+
+const orderModel = (sequelize, DataTypes) => {
+  const Order = sequelize.define('order', {
+    total_amount: {
+      type: DataTypes.DECIMAL
+    },
+    created_on: {
+      type: DataTypes.DATE,
+      defaultValues: Date.now()
+    },
+    shipped_on: {
+      type: DataTypes.DATE,
+      defaultValues: Date.now()
+    },
+    status: {
+      type: DataTypes.INTEGER,
+      defaultValues: 1
+    },
+    comments: {
+      type: DataTypes.STRING
+    },
+    customer_id: {
+      type: DataTypes.INTEGER
+    },
+    auth_code: {
+      type: DataTypes.STRING,
+
+    },
+    reference: {
+      type: DataTypes.STRING
+    },
+    shipping_id: {
+      type: DataTypes.INTEGER,
+      defaultValues: Date.now()
+    },
+    tax_id: {
+      type: DataTypes.INTEGER
+    }
   }, {});
-  Order.associate = function(models) {
-    // associations can be defined here
-  };
+  // Order.associate = function (models) {
+  //   // associations can be defined here
+  // };
   return Order;
 };
+
+export default orderModel;

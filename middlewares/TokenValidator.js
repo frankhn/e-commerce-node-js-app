@@ -41,7 +41,7 @@ class verifyToken {
         });
       }
       if (decoded) {
-        this.req.user = decoded;
+        this.req.user = decoded.customer;
         this.next();
       }
     });
