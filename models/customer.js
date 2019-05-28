@@ -1,3 +1,5 @@
+import { validatePassword, hashPassword } from '../helpers/Encryption';
+
 const CustomerModel = (sequelize, DataTypes) => {
   const Customer = sequelize.define('customer', {
     name: {
@@ -25,10 +27,19 @@ const CustomerModel = (sequelize, DataTypes) => {
       }
     },
     password: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(100),
+      allowNull: false,
       validate: {
-        notEmpty: true,
-      }
+        validation() {
+          if (!this.provider) {
+            const result = validatePassword(this.password);
+            if (result !== true) {
+              throw new Error(result);
+            }
+            this.password = hashPassword(this.password);
+          }
+        },
+      },
     },
     credit_card: {
       type: DataTypes.TEXT,

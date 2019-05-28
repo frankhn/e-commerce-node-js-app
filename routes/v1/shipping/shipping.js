@@ -1,16 +1,16 @@
-// import express from 'express';
-// import Product from '../../../controllers/product';
+import express from 'express';
+import Shipping from '../../../controllers/shipping';
 
-// const router = express.Router();
+const router = express.Router();
 
-// // create car instance
-// const product = new Product();
+// create car instance
+const shipping = new Shipping();
 
-// // shipping regions
-// router.get('/regions', product.create);
+// shipping regions
+router.get('/regions', shipping.everythingAboutShipping);
 
-// // get shipping region
-// router.get('/:shippingRegionID', product.fetch);
+// get shipping region
+router.get('/:shippingRegionID(\\d+)', shipping.shippingRegions);
 
 
-// export default router;
+export default router;

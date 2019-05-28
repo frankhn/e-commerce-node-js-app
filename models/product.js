@@ -3,12 +3,12 @@
 const productModel = (sequelize, DataTypes) => {
   const Product = sequelize.define('product', {
     name: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: false,
       unique: true
     },
     description: {
-      type: DataTypes.STRING(1000),
+      type: DataTypes.TEXT,
       allowNull: false
     },
     price: {

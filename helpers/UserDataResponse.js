@@ -18,7 +18,7 @@ class UserDataResponse {
    */
   select() {
     const user = select.pick(this.user, ['id', 'name', 'email', 'address_1', 'address_2', 'city', 'country', 'postal_code',
-      'shipping_region_id', 'day_phone', 'eve_phone', 'mob_phone', 'credit_card']);
+      'shipping_region_id', 'day_phone', 'eve_phone', 'region', 'mob_phone', 'credit_card']);
     return user;
   }
 }

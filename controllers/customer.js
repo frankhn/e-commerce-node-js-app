@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import models from '../models/index';
 import UserDataResponse from '../helpers/UserDataResponse';
+import { comparePassword } from '../helpers/Encryption';
 
 const { customer: CustomerModel } = models;
 /**
@@ -28,8 +29,8 @@ class Customer {
       };
       let user = await CustomerModel.create(NewUser);
       if (user) {
-        const token = jwt.sign({ user }, process.env.SECRETKEY);
         user = new UserDataResponse(user).select();
+        const token = jwt.sign({ user }, process.env.SECRETKEY);
         res.status(201).json({
           status: 201,
           user,
@@ -53,15 +54,23 @@ class Customer {
   async login(req, res) {
     try {
       const { email, password } = req.body;
-      let customer = await CustomerModel.findOne({ where: { email, password } });
+      let customer = await CustomerModel.findOne({ where: { email } });
       if (customer.dataValues) {
-        const token = jwt.sign({ customer }, process.env.SECRETKEY);
-        customer = new UserDataResponse(customer.dataValues).select();
-        res.status(201).json({
-          status: 201,
-          customer,
-          accessToken: `Bearer ${token}`
-        });
+        const verify = comparePassword(password, customer.dataValues.password);
+        if (verify === true) {
+          customer = new UserDataResponse(customer.dataValues).select();
+          const token = jwt.sign({ customer }, process.env.SECRETKEY);
+          res.status(201).json({
+            status: 201,
+            customer,
+            accessToken: `Bearer ${token}`
+          });
+        } else {
+          res.status(201).json({
+            status: 201,
+            message: 'incorrect credentials'
+          });
+        }
       }
     } catch (error) {
       res.status(400).json({
@@ -81,11 +90,11 @@ class Customer {
   async profile(req, res) {
     try {
       let customer = await CustomerModel.findOne({ where: { id: req.user.id } });
-      if (customer.dataValues) {
-        customer = new UserDataResponse(customer.dataValues).select();
+      if (customer) {
+        customer = new UserDataResponse(customer).select();
         const token = jwt.sign({ customer }, process.env.SECRETKEY);
-        res.status(201).json({
-          status: 201,
+        res.status(200).json({
+          status: 200,
           customer,
           accessToken: `Bearer ${token}`
         });
@@ -132,12 +141,15 @@ class Customer {
   async updateCreditCard(req, res) {
     const { credit_card } = req.body;
     try {
-      const user = await CustomerModel.update(
-        { credit_card }, { where: { id: req.user.id } }
+      const { id } = req.user;
+      await CustomerModel.update(
+        { credit_card }, { where: { id } }
       );
+      let customer = await CustomerModel.findOne({ where: { id } });
+      customer = new UserDataResponse(customer.dataValues).select();
       res.status(201).json({
         status: 201,
-        user: user.getAsJsonObject('customer').remove('password')
+        customer
       });
     } catch (error) {
       res.status(400).json({

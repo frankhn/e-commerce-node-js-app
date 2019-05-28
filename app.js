@@ -17,7 +17,7 @@ app.use((express.json()));
 app.use((req, res) => {
   res.status(400).json({
     status: 400,
-    message: 'Bad request'
+    message: 'Bad request: Endpoint not found'
   });
 });
 

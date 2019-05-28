@@ -1,0 +1,146 @@
+swagger: '2.0'
+info:
+  version: '0.0.1'
+  title: E-commerce
+# during dev, should point to your local machine
+host: localhost:8000
+# basePath prefixes all resource paths
+basePath: /
+#
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /api/customer:
+    # returns a jwt token after registration
+    post:
+      description: Returns a json web token after a Successfull registration
+      parameters:
+        - name: New user
+          in: body
+          required: true
+          description: The User json You want to create
+          schema:
+            type: object
+            properties:
+              name:
+                type: 'string'
+                example: 'name'
+              email:
+                type: 'string'
+                example: 'email@host.com'
+              address_1:
+                type: 'string'
+                example: 'username'
+              region:
+                type: 'string'
+                example: '!23Secret'
+              day_phone:
+                type: 'number'
+                example: '53453353'
+      responses:
+        '201':
+          description: created
+          schema:
+            type: object
+            properties:
+              user:
+                type: 'object'
+                properties:
+                  name:
+                    type: 'string'
+                    example: 'name'
+                  email:
+                    type: 'string'
+                    example: 'email@host.com'
+                  address_1:
+                    type: 'string'
+                    example: 'milton'
+                  address_2:
+                    type: 'string'
+                    example: 'valley'
+                  city:
+                    type: 'string'
+                    example: 'newyork'
+                  country:
+                    type: 'string'
+                    example: 'newyork'
+                  postal_code:
+                    type: 'number'
+                    example: '4334'
+                  day_phone:
+                    type: 'number'
+                    example: '433432323'
+                  token:
+                    type: 'string'
+                    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW0yM2hpMjMxYXNmOSIsImVtYWlsIjoibWVAZ21haWwuY29zaGEiLCJmaXJzdG5hbWUiOiJGcmllZCIsImxhc3RuYW1lIjoiTWlrZWxyaCIsImlhdCI6MTU1NTA1OTc0NX0.NfmPq_sMaD9vmdA7VH0CV2ts_6_q4eql0TiqXQVoS0w'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected Error
+  /api/customer/login:
+    # returns a jwt token after registration
+    post:
+      description: Returns a json web token after a Successfull registration
+      parameters:
+        - name: New user
+          in: body
+          required: true
+          description: The User json You want to create
+          schema:
+            type: object
+            properties:
+              email:
+                type: 'string'
+                example: 'email@host.com'
+              password:
+                type: 'string'
+                example: '!23Secret'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              user:
+                type: 'object'
+                properties:
+                  name:
+                    type: 'string'
+                    example: 'name'
+                  email:
+                    type: 'string'
+                    example: 'email@host.com'
+                  address_1:
+                    type: 'string'
+                    example: 'milton'
+                  address_2:
+                    type: 'string'
+                    example: 'valley'
+                  city:
+                    type: 'string'
+                    example: 'newyork'
+                  country:
+                    type: 'string'
+                    example: 'newyork'
+                  postal_code:
+                    type: 'number'
+                    example: '4334'
+                  day_phone:
+                    type: 'number'
+                    example: '433432323'
+
+                  token:
+                    type: 'string'
+                    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW0yM2hpMjMxYXNmOSIsImVtYWlsIjoibWVAZ21haWwuY29zaGEiLCJmaXJzdG5hbWUiOiJGcmllZCIsImxhc3RuYW1lIjoiTWlrZWxyaCIsImlhdCI6MTU1NTA1OTc0NX0.NfmPq_sMaD9vmdA7VH0CV2ts_6_q4eql0TiqXQVoS0w'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected Error

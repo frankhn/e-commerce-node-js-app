@@ -17,8 +17,8 @@ module.exports = {
       unique: true
     },
     password: {
-      type: Sequelize.TEXT,
-      allowNull: true
+      type: Sequelize.STRING(100),
+      allowNull: false
     },
     credit_card: {
       type: Sequelize.TEXT,
@@ -65,12 +65,14 @@ module.exports = {
       allowNull: true
     },
     createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      allowNull: true,
+      type: Sequelize.DATE,
+      defaultValues: Sequelize.literal('NOW()')
     },
     updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      allowNull: true,
+      type: Sequelize.DATE,
+      defaultValues: Sequelize.literal('NOW()')
     }
   }),
   // eslint-disable-next-line no-unused-vars
