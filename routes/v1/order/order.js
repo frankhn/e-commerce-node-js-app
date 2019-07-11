@@ -1,6 +1,8 @@
 import express from 'express';
 import TokenValidator from '../../../middlewares/TokenValidator';
 import Order from '../../../controllers/order';
+import validation from '../../validations/order/order.validation'
+import { celebrate } from 'celebrate';
 
 const router = express.Router();
 
@@ -10,7 +12,7 @@ const order = new Order();
 // create order
 router.post('/', (req, res, next) => {
   new TokenValidator(req, res, next).verify();
-}, order.createOrder);
+}, celebrate({ body: validation }), order.createOrder);
 
 // get info about order
 router.get('/:id(\\d+)', (req, res, next) => {

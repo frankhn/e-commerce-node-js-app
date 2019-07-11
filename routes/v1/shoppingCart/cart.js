@@ -1,6 +1,8 @@
 import express from 'express';
 import TokenValidator from '../../../middlewares/TokenValidator';
 import Cart from '../../../controllers/cart';
+import * as Validation from '../../validations/cart/addToCart.validation'
+import { celebrate } from 'celebrate';
 
 const router = express.Router();
 
@@ -11,13 +13,13 @@ const cart = new Cart();
 router.get('/generateUniqueId', cart.generateUniqueCartId);
 
 // add product to cart
-router.post('/add', cart.addToCart);
+router.post('/add', celebrate({ body: Validation.addToCart }), cart.addToCart);
 
-// get list of cart
+// get list of products in a cart
 router.get('/:cartId(\\d+)', cart.listOfProductsInCart);
 
 // update cart by item
-router.put('/update/:cartId(\\d+)', cart.updateCartByItem);
+router.put('/update/:cartId(\\d+)', celebrate({ body: Validation.updateCart }), cart.updateCartByItem);
 
 // empty the cart
 router.delete('/empty/:cartId(\\d+)', cart.emptyCart);

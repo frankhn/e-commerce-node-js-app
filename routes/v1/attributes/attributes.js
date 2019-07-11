@@ -15,8 +15,5 @@ router.get('/:attributeID(\\d+)', attribute.singleAttribute);
 // get values of attribute from attribute
 router.get('/values/:attributeID(\\d+)', attribute.attributeValues);
 
-// get categories of a department
-router.get('/inProduct/:productID(\\d+)', attribute.allAttributes);
-
 
 export default router;

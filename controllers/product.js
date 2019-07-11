@@ -188,8 +188,8 @@ class Product {
         productArray.push(getProducts(productIds[i]));
       }
       const result = await Promise.all(productArray);
-      res.status(400).json({
-        status: 400,
+      res.status(200).json({
+        status: 200,
         result
       });
     } catch (error) {

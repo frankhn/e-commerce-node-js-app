@@ -230,7 +230,7 @@ class Cart {
           },
           where: { cart_id: cartId }
         });
-        cartProducts.map(element => cartProduct.push(element.dataValues.product_id));
+        cartProducts.map(element => cartProduct.push(element.dataValues.product_id ));
         // find products
         const getProducts = async (id) => {
           const res = await productModel.findOne({

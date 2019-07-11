@@ -1,6 +1,8 @@
 import express from 'express';
+import { celebrate } from 'celebrate';
 import Product from '../../../controllers/product';
 import TokenValidator from '../../../middlewares/TokenValidator';
+import reviewValidations from '../../validations/product/review.validations';
 
 const router = express.Router();
 
@@ -34,7 +36,7 @@ router.get('/:id(\\d+)/reviews', product.productReview);
 // create reviews
 router.post('/:id(\\d+)/reviews', (req, res, next) => {
   new TokenValidator(req, res, next).verify();
-}, product.createReview);
+}, celebrate({ body: reviewValidations }), product.createReview);
 
 
 export default router;

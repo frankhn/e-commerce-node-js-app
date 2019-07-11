@@ -1,7 +1,10 @@
 import express from 'express';
 import passport from 'passport';
+import { celebrate } from 'celebrate';
 import Customer from '../../../controllers/customer';
 import TokenValidator from '../../../middlewares/TokenValidator';
+import { userSignupSchema, userLogin } from '../../validations/user.valiations';
+import { userAddress, creditCard } from '../../validations/user.profile.validation';
 
 const router = express.Router();
 
@@ -22,11 +25,11 @@ router.get('/profile', (req, res, next) => {
 
 
 // signup customer
-router.post('/', customer.register);
+router.post('/', celebrate({ body: userSignupSchema }), customer.register);
 
 
 // login customer
-router.post('/login', customer.login);
+router.post('/login', celebrate({ body: userLogin }), customer.login);
 
 
 // facebook authentication
@@ -40,12 +43,12 @@ router.get(
 // update customer address
 router.put('/address', (req, res, next) => {
   new TokenValidator(req, res, next).verify();
-}, customer.updateAddress);
+}, celebrate({ body: userAddress }), customer.updateAddress);
 
 
 // update customer credit card
 router.put('/creditCard', (req, res, next) => {
   new TokenValidator(req, res, next).verify();
-}, customer.updateCreditCard);
+}, celebrate({ body: creditCard }), customer.updateCreditCard);
 
 export default router;

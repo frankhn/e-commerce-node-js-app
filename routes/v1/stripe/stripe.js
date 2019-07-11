@@ -1,14 +1,23 @@
-// import express from 'express';
-// import Product from '../../../controllers/product';
+import express from 'express';
+import cheke from 'cheke';
+import Payment from '../../../controllers/payment';
 
-// const router = express.Router();
+const router = express.Router();
 
-// // create car instance
-// const product = new Product();
+// create car instance
+const payment = new Payment();
 
-// router.post('/charge', product.create);
+router.post('/charge', cheke({
+  body: {
+    email: 'required|email',
+    amount: 'required|integer',
+    order_id: 'required|integer',
+    description: 'required|string|min:10|max:100',
+    currency: 'string|min:2|max:5'
+  }
+}), payment.charge);
 
-// router.post('/webHooks', product.fetch);
+router.post('/webHooks', payment.charge);
 
 
-// export default router;
+export default router;

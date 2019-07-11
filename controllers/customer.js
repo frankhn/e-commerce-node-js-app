@@ -60,14 +60,14 @@ class Customer {
         if (verify === true) {
           customer = new UserDataResponse(customer.dataValues).select();
           const token = jwt.sign({ customer }, process.env.SECRETKEY);
-          res.status(201).json({
-            status: 201,
+          res.status(200).json({
+            status: 200,
             customer,
             accessToken: `Bearer ${token}`
           });
         } else {
-          res.status(201).json({
-            status: 201,
+          res.status(400).json({
+            status: 400,
             message: 'incorrect credentials'
           });
         }
@@ -171,25 +171,29 @@ class Customer {
         address_1, address_2, city, country, postal_code,
         shipping_region_id, day_phone, eve_phone, mob_phone
       } = req.body;
-      const customer = await CustomerModel.update(
-        { address_1 },
-        { address_2 },
-        { city },
-        { country },
-        { postal_code },
-        { shipping_region_id },
-        { day_phone },
-        { eve_phone },
-        { mob_phone }, { where: { id: req.user.id } }
+      await CustomerModel.update(
+        {
+          address_1,
+          address_2,
+          city,
+          country,
+          postal_code,
+          shipping_region_id,
+          day_phone,
+          eve_phone,
+          mob_phone
+        }, { where: { id: req.user.id } }
       );
+      const customer = await CustomerModel.findOne({ where: { id: req.user.id } });
       res.status(201).json({
         status: 201,
-        customer: new UserDataResponse(customer.dataValues).select()
+        message: 'profile updated successfully',
+        customer: new UserDataResponse(customer).select()
       });
     } catch (error) {
       res.status(400).json({
         status: 400,
-        message: error.errors[0].message
+        message: error.message
       });
     }
   }

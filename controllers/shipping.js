@@ -53,9 +53,15 @@ class Shipping {
         },
         where: { shipping_region_id: shippingID }
       });
-      res.status(200).json({
-        status: 200,
-        data: shipping
+      if (shipping.length > 0) {
+        res.status(200).json({
+          status: 200,
+          data: shipping
+        });
+      }
+      res.status(404).json({
+        status: 404,
+        message: 'Shipping region not found'
       });
     } catch (error) {
       res.status(400).json({
